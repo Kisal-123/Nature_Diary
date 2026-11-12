@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nature Diary: [Your Title]</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=Public+Sans:wght@400;500;600&display=swap">
+    <style>
+        :root{
+            --forest:#14352A; --moss:#3F6B4F; --pond:#2F6283; --mud:#6E5E48;
+            --paper:#F4F7F2; --card:#FFFFFF; --ink:#1B2A23; --line:#D3DCD0; --soft:#E6EDE2;
+            --serif:"Literata",Georgia,serif; --sans:"Public Sans",system-ui,sans-serif;
+            --nav-h:64px;
+        }
+        *{box-sizing:border-box}
+        html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
+        body{margin:0;background:var(--paper);color:var(--ink);font:1.05rem/1.8 var(--serif)}
+        a{color:var(--pond)}
+        :focus-visible{outline:3px solid var(--pond);outline-offset:3px}
+        @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+        /* ---------- TOP NAVIGATION ---------- */
+        .topbar{position:sticky;top:0;z-index:50;height:var(--nav-h);background:var(--forest);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+        .topbar-in{max-width:1100px;height:100%;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between}
+        .brand{font:600 1.05rem var(--sans);color:#fff;text-decoration:none;letter-spacing:.01em}
+        .menu{display:flex;gap:.25rem;margin:0;padding:0;list-style:none}
+        .menu a{display:block;padding:.5rem .95rem;color:#D8E6DC;text-decoration:none;font:500 .95rem var(--sans);border-radius:6px;position:relative;transition:color .2s,background .2s}
+        .menu a:hover{color:#fff;background:rgba(255,255,255,.1)}
+        .menu a.active{color:#fff;background:var(--moss)}
+        .burger{display:none;background:none;border:1px solid rgba(255,255,255,.4);color:#fff;font:500 .9rem var(--sans);padding:.4rem .8rem;border-radius:6px;cursor:pointer}
+
+        /* ---------- COVER ---------- */
+        .cover{background:var(--forest);color:#fff;padding:5.5rem 1.5rem 6rem;
+            background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.03) 0 2px,transparent 2px 38px)}
+        .cover-in{max-width:900px;margin:0 auto}
+        .kicker{font:500 1rem var(--sans);color:#A9CDB3;margin:0 0 1rem}
+        .cover h1{font:600 clamp(2.2rem,5.5vw,3.8rem)/1.15 var(--serif);margin:0 0 1rem}
+        .cover .sub{font:italic 1.25rem var(--serif);color:#CFE2D4;margin:0 0 2.5rem}
+        .idcard{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem 2rem;border-top:1px solid rgba(255,255,255,.25);padding-top:1.5rem;font-family:var(--sans)}
+        .idcard dt{font-size:.8rem;color:#A9CDB3;margin-bottom:.15rem}
+        .idcard dd{margin:0;font-size:1.02rem;font-weight:500}
+
+        /* ---------- CONTENT ---------- */
+        main{max-width:900px;margin:0 auto;padding:0 1.5rem 4rem}
+        section{padding:3.5rem 0 .5rem}
+        h2{font:600 1.9rem/1.2 var(--serif);color:var(--forest);margin:0 0 1.2rem;padding-bottom:.6rem;border-bottom:3px solid var(--moss);display:inline-block}
+        h3{font:600 1.1rem var(--sans);margin:1.8rem 0 .6rem}
+        p{margin:0 0 1rem}
+        .sci{font-style:italic}
+
+        /* methods grid */
+        .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1.2rem 0}
+        .fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem}
+        .fact h3{margin:0 0 .3rem;color:var(--moss);font-size:.95rem}
+        .fact p{margin:0;font-size:.98rem;line-height:1.6}
+
+        /* diary entries */
+        .log{position:relative;margin:1.5rem 0;padding-left:1.8rem;border-left:3px solid var(--line)}
+        .entry{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.3rem;margin-bottom:1.2rem}
+        .entry::before{content:"";position:absolute;left:calc(-1.8rem - 9px);top:1.4rem;width:15px;height:15px;border-radius:50%;background:var(--moss);border:3px solid var(--paper)}
+        .entry h3{margin:0 0 .25rem;font-size:1.05rem}
+        .meta{font:400 .85rem var(--sans);color:var(--mud);margin:0 0 .6rem}
+        .entry p:last-child{margin:0}
+
+        /* table + figures */
+        .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+        table{border-collapse:collapse;width:100%;font:400 .95rem var(--sans)}
+        caption{caption-side:top;text-align:left;padding:.8rem 1rem;color:var(--mud);font-size:.88rem}
+        th,td{padding:.65rem 1rem;text-align:left;border-top:1px solid var(--line)}
+        th{background:var(--soft);font-weight:600}
+        figure{margin:1.8rem 0}
+        .ph{border:2px dashed var(--mud);border-radius:10px;padding:3rem 1rem;text-align:center;font:400 .92rem var(--sans);color:var(--mud);background:var(--card)}
+        figure img{max-width:100%;height:auto;display:block;border-radius:10px}
+        figcaption{font:400 .86rem var(--sans);color:var(--mud);margin-top:.5rem}
+
+        /* conclusion + references */
+        .callout{background:var(--soft);border-left:5px solid var(--moss);border-radius:0 10px 10px 0;padding:1.2rem 1.5rem}
+        .callout p:last-child{margin:0}
+        ol.refs{padding-left:1.4rem}
+        ol.refs li{margin-bottom:.8rem}
+
+        footer{background:var(--forest);color:#A9CDB3;text-align:center;padding:1.5rem;font:400 .9rem var(--sans)}
+        #wc{position:fixed;right:1rem;bottom:1rem;background:var(--ink);color:#fff;font:600 .85rem var(--sans);padding:.5rem .8rem;border-radius:6px;z-index:60}
+
+        /* ---------- MOBILE ---------- */
+        @media(max-width:760px){
+            .burger{display:block}
+            .menu{display:none;position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;background:var(--forest);padding:.5rem 1rem 1rem;box-shadow:0 8px 12px rgba(0,0,0,.2)}
+            .menu.open{display:flex}
+            .cover{padding:3.5rem 1.25rem 4rem}
+            main{padding:0 1.25rem 3rem}
+        }
+        @media print{.topbar,#wc{display:none}.cover{padding:2rem}}
+    </style>
+</head>
+<body>
+
+<!-- TOP NAVIGATION -->
+<header class="topbar">
+    <div class="topbar-in">
+        <a class="brand" href="#top">Nature Diary</a>
+        <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
+        <ul class="menu" id="menu">
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#methods">Methods</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#discussion">Discussion</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- 1. COVER PAGE -->
+<div class="cover" id="top">
+    <div class="cover-in">
+        <p class="kicker">ZOO 121 1.0 Ecology</p>
+        <h1>[Your title, e.g. Morning Visitors to a Hibiscus Bush]</h1>
+        <p class="sub"><span class="sci">[Scientific name]</span> ([common name])</p>
+        <dl class="idcard">
+            <div><dt>Name</dt><dd>K.R.D.ABEYWICKRAMA</dd></div>
+            <div><dt>Index number</dt><dd>AS20250213</dd></div>
+            <div><dt>University</dt><dd>University of Sri Jayawardenapura</dd></div>
+            <div><dt>Submitted</dt><dd>[Submission date]</dd></div>
+        </dl>
+    </div>
+</div>
+
+<main>
+    <!-- 2. ACKNOWLEDGMENT (optional: delete this whole section if not needed) -->
+    <section id="ack">
+        <h2>Acknowledgment</h2>
+        <p>[One or two sentences thanking your lecturer or anyone who helped you. Delete this section if you prefer.]</p>
+    </section>
+
+    <!-- 3. INTRODUCTION -->
+    <section id="intro">
+        <h2>Introduction</h2>
+        <p>[2 to 4 sentences: what you observed, where, and why you chose it. Add one line of background with a citation, e.g. (Author, Year).]</p>
+        <p>[Your aim or question in one sentence.]</p>
+    </section>
+
+    <!-- 4. METHODS -->
+    <section id="methods">
+        <h2>Methods</h2>
+        <div class="facts">
+            <div class="fact"><h3>Study site</h3><p>[Where exactly? Describe it briefly.]</p></div>
+            <div class="fact"><h3>Subject</h3><p>[Species, individual or group.]</p></div>
+            <div class="fact"><h3>Schedule</h3><p>[How often and for how long, e.g. 20 minutes, three mornings a week.]</p></div>
+            <div class="fact"><h3>What I recorded</h3><p>[Behaviours, counts, weather, time of day.]</p></div>
+            <div class="fact"><h3>Equipment</h3><p>[Notebook, phone camera, thermometer.]</p></div>
+            <div class="fact"><h3>Experiment (if any)</h3><p>[Hypothesis, what you changed, what you kept the same, your control.]</p></div>
+        </div>
+    </section>
+
+    <!-- 5. RESULTS -->
+    <section id="results">
+        <h2>Results</h2>
+        <p>[1 or 2 sentences summarising the main pattern you found.]</p>
+
+        <h3>Field log</h3>
+        <div class="log">
+            <!-- Copy one <article> block for each diary entry -->
+            <article class="entry">
+                <h3>Day 1</h3>
+                <p class="meta">[Date] · [Time] · [Weather] · [Temperature]</p>
+                <p>[What you saw, in your own words.]</p>
+            </article>
+            <article class="entry">
+                <h3>Day 2</h3>
+                <p class="meta">[Date] · [Time] · [Weather] · [Temperature]</p>
+                <p>[Observation.]</p>
+            </article>
+            <article class="entry">
+                <h3>Day 3</h3>
+                <p class="meta">[Date] · [Time] · [Weather] · [Temperature]</p>
+                <p>[Observation.]</p>
+            </article>
+        </div>
+
+        <h3>Summary table</h3>
+        <div class="tablewrap">
+            <table>
+                <caption>Table 1. [Describe what the table shows.]</caption>
+                <thead><tr><th>Date</th><th>Time</th><th>[Variable 1]</th><th>[Variable 2]</th></tr></thead>
+                <tbody>
+                <tr><td>[ ]</td><td>[ ]</td><td>[ ]</td><td>[ ]</td></tr>
+                <tr><td>[ ]</td><td>[ ]</td><td>[ ]</td><td>[ ]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <figure>
+            <!-- Replace the dashed box with: <img src="images/photo1.jpg" alt="Describe the photo"> -->
+            <div class="ph">Photo 1: put your own photo here</div>
+            <figcaption>Figure 1. [What the photo shows, where and when you took it.]</figcaption>
+        </figure>
+    </section>
+
+    <!-- 6. DISCUSSION -->
+    <section id="discussion">
+        <h2>Discussion</h2>
+        <p>[Explain WHY you think you got these results. Link them to biology: time of day, temperature, food, predators. Compare with your references. Mention limits (few days, one site) and what you would do differently.]</p>
+    </section>
+
+    <!-- 7. CONCLUSION -->
+    <section id="conclusion">
+        <h2>Conclusion</h2>
+        <div class="callout"><p>[One short paragraph: your key finding and what it tells you about the organism.]</p></div>
+    </section>
+
+    <!-- 8. REFERENCES (journal articles, books, .gov and .org only) -->
+    <section id="references">
+        <h2>References</h2>
+        <ol class="refs">
+            <li>[Author, A. B. (Year). Title of article. <em>Journal Name</em>, volume(issue), pages. DOI]</li>
+            <li>[Author, A. B. (Year). <em>Title of book</em> (edition). Publisher.]</li>
+            <li>[Organisation. (Year). Title of page. Retrieved date, from URL]</li>
+        </ol>
+    </section>
+</main>
+
+<footer>K.R.D.ABEYWICKRAMA   | AS20250213   | Nature Diary</footer>
+
+
+
+<script>
+    // Mobile menu
+    var burger=document.querySelector(".burger"),menu=document.getElementById("menu");
+    burger.addEventListener("click",function(){var o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
+    menu.addEventListener("click",function(){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")});
+
+    // Highlight the current section in the menu
+    var links=[].slice.call(menu.querySelectorAll("a"));
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+        if(e.isIntersecting){links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id)})}
+    })},{rootMargin:"-30% 0px -60% 0px"});
+    ["intro","methods","results","discussion","conclusion","references"].forEach(function(id){io.observe(document.getElementById(id))});
+
+    // Word counter (Introduction to Conclusion)
+    var n=0;["intro","methods","results","discussion","conclusion"].forEach(function(i){
+        var t=document.getElementById(i).innerText.trim();if(t)n+=t.split(/\s+/).length});
+    document.getElementById("wc").textContent="Words: "+n+" / 2000";
+</script>
+</body>
+</html>
