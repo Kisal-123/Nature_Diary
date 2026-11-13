@@ -29,16 +29,30 @@
         .menu a.active{color:#fff;background:var(--moss)}
         .burger{display:none;background:none;border:1px solid rgba(255,255,255,.4);color:#fff;font:500 .9rem var(--sans);padding:.4rem .8rem;border-radius:6px;cursor:pointer}
 
-        /* ---------- COVER ---------- */
-        .cover{background:var(--forest);color:#fff;padding:5.5rem 1.5rem 6rem;
-            background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.03) 0 2px,transparent 2px 38px)}
-        .cover-in{max-width:900px;margin:0 auto}
-        .kicker{font:500 1rem var(--sans);color:#A9CDB3;margin:0 0 1rem}
-        .cover h1{font:600 clamp(2.2rem,5.5vw,3.8rem)/1.15 var(--serif);margin:0 0 1rem}
-        .cover .sub{font:italic 1.25rem var(--serif);color:#CFE2D4;margin:0 0 2.5rem}
-        .idcard{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem 2rem;border-top:1px solid rgba(255,255,255,.25);padding-top:1.5rem;font-family:var(--sans)}
-        .idcard dt{font-size:.8rem;color:#A9CDB3;margin-bottom:.15rem}
-        .idcard dd{margin:0;font-size:1.02rem;font-weight:500}
+        /* ---------- COVER (NEW MACRO HERO) ---------- */
+        .cover{
+            color:#fff;
+            padding:8rem 1.5rem 9rem;
+            min-height:75vh;
+            display:flex;
+            align-items:center;
+            position:relative;
+            /* Adjusted dark gradient to pair beautifully with the rich greens of the frog image */
+            background: linear-gradient(180deg, rgba(8, 28, 20, 0.75) 0%, rgba(8, 28, 20, 0.4) 50%, rgba(5, 18, 12, 0.95) 100%),
+                        url('frog-hero.jpg') no-repeat center center;
+            background-size:cover;
+            background-attachment:scroll;
+        }
+        @media(min-width:1024px){
+            .cover{background-attachment:fixed;}
+        }
+        .cover-in{max-width:900px;margin:0 auto;width:100%;z-index:2;text-shadow: 0 3px 8px rgba(0,0,0,0.6);}
+        .kicker{font:600 1.05rem var(--sans);color:#83C598;margin:0 0 1rem;letter-spacing:0.06em;text-transform:uppercase}
+        .cover h1{font:600 clamp(2.5rem,6.5vw,4.5rem)/1.15 var(--serif);margin:0 0 1rem;letter-spacing:-0.01em;}
+        .cover .sub{font:italic 1.35rem var(--serif);color:#D4E8DA;margin:0 0 3.5rem;font-weight:400}
+        .idcard{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem 2rem;border-top:1px solid rgba(255,255,255,0.2);padding-top:2rem;font-family:var(--sans)}
+        .idcard dt{font-size:.8rem;color:#83C598;margin-bottom:.2rem;text-transform:uppercase;letter-spacing:0.05em}
+        .idcard dd{margin:0;font-size:1.1rem;font-weight:500;color:#FFFFFF}
 
         /* ---------- CONTENT ---------- */
         main{max-width:900px;margin:0 auto;padding:0 1.5rem 4rem}
@@ -87,7 +101,7 @@
             .burger{display:block}
             .menu{display:none;position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;background:var(--forest);padding:.5rem 1rem 1rem;box-shadow:0 8px 12px rgba(0,0,0,.2)}
             .menu.open{display:flex}
-            .cover{padding:3.5rem 1.25rem 4rem}
+            .cover{padding:5rem 1.25rem 6rem;min-height:60vh}
             main{padding:0 1.25rem 3rem}
         }
         @media print{.topbar,#wc{display:none}.cover{padding:2rem}}
@@ -115,12 +129,12 @@
 <div class="cover" id="top">
     <div class="cover-in">
         <p class="kicker">ZOO 121 1.0 Ecology</p>
-        <h1>[Your title, e.g. Morning Visitors to a Hibiscus Bush]</h1>
+        <h1>[Your title, e.g. Anuran Amphibians of Sri Lanka]</h1>
         <p class="sub"><span class="sci">[Scientific name]</span> ([common name])</p>
         <dl class="idcard">
             <div><dt>Name</dt><dd>K.R.D.ABEYWICKRAMA</dd></div>
             <div><dt>Index number</dt><dd>AS20250213</dd></div>
-            <div><dt>University</dt><dd>University of Sri Jayawardenapura</dd></div>
+            <div><dt>University</dt><dd>University of Sri Jayewardenepura</dd></div>
             <div><dt>Submitted</dt><dd>[Submission date]</dd></div>
         </dl>
     </div>
@@ -191,7 +205,6 @@
         </div>
 
         <figure>
-            <!-- Replace the dashed box with: <img src="images/photo1.jpg" alt="Describe the photo"> -->
             <div class="ph">Photo 1: put your own photo here</div>
             <figcaption>Figure 1. [What the photo shows, where and when you took it.]</figcaption>
         </figure>
@@ -209,7 +222,7 @@
         <div class="callout"><p>[One short paragraph: your key finding and what it tells you about the organism.]</p></div>
     </section>
 
-    <!-- 8. REFERENCES (journal articles, books, .gov and .org only) -->
+    <!-- 8. REFERENCES -->
     <section id="references">
         <h2>References</h2>
         <ol class="refs">
@@ -222,22 +235,17 @@
 
 <footer>K.R.D.ABEYWICKRAMA   | AS20250213   | Nature Diary</footer>
 
-
-
 <script>
-    // Mobile menu
     var burger=document.querySelector(".burger"),menu=document.getElementById("menu");
     burger.addEventListener("click",function(){var o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
     menu.addEventListener("click",function(){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")});
 
-    // Highlight the current section in the menu
     var links=[].slice.call(menu.querySelectorAll("a"));
     var io=new IntersectionObserver(function(es){es.forEach(function(e){
         if(e.isIntersecting){links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id)})}
     })},{rootMargin:"-30% 0px -60% 0px"});
     ["intro","methods","results","discussion","conclusion","references"].forEach(function(id){io.observe(document.getElementById(id))});
 
-    // Word counter (Introduction to Conclusion)
     var n=0;["intro","methods","results","discussion","conclusion"].forEach(function(i){
         var t=document.getElementById(i).innerText.trim();if(t)n+=t.split(/\s+/).length});
     document.getElementById("wc").textContent="Words: "+n+" / 2000";
